@@ -29,3 +29,29 @@ go run main.go
 ```
 go test ./...
 ```
+
+## Available POST endpoints
+
+```
+http://165.22.91.151:8181/issuing-jwt-token
+```
+
+Еxpect: Json as post: {"username":"", "password":""}
+
+
+Example Request:
+```
+POST /issuing-jwt-token HTTP/1.1
+Host: 165.22.91.151:8181
+Content-Type: application/json
+Cache-Control: no-cache
+
+{"username":"user1", "password":"password1"}
+```
+
+Example Response:
+```
+{
+    "Token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NzUzMDA3ODh9.K1MWq28W3cak4niCP9QLnJB-Qr8vzH6GAA7du7_ofTU"
+}
+```

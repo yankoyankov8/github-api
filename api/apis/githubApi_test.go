@@ -5,9 +5,11 @@ import (
 	"github.com/stretchr/testify/assert"
 	"net/url"
 	"testing"
+	"fmt"
+	"api/helpers"
 )
 
-var github = &GithubApi{BaseURL: &url.URL{Host: "api.github.com", Scheme: "https"}}
+var github = &GithubApi{BaseURL: &url.URL{Host: helpers.GithubUrl, Scheme: "https"}}
 
 func TestGet(t *testing.T) {
 	assert := assert.New(t)
@@ -23,12 +25,12 @@ func TestGet(t *testing.T) {
 	}{
 		{
 			description: "github api success",
-			responder: httpmock.NewStringResponder(200, `{
+			responder: httpmock.NewStringResponder(200, fmt.Sprintf(`{
     "created_at": "2016-08-22T15:49:01Z",
     "description": "test",
     "updated_at": "2019-11-28T23:58:25Z",
-    "url": "https://api.github.com/repos/vmware/admiral"
-}`),
+    "url": "https://%s/repos/vmware/admiral"
+}`, helpers.GithubUrl)),
 			expectedRepos: ResponseRepoInfo{CreatedAt: "2016-08-22T15:49:01Z", Description: "test", UpdatedAt: "2019-11-28T23:58:25Z", URL: "https://api.github.com/repos/vmware/admiral"},
 			expectedError: nil,
 		},

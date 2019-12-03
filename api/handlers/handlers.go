@@ -11,6 +11,7 @@ import (
 )
 
 //TODO Not for here!
+//TODO User/Pass should be stored in DB with encrypted password
 var users = map[string]string{
 	"user1": "password1",
 }
@@ -88,14 +89,6 @@ func IssuingJwtToken(w http.ResponseWriter, r *http.Request, jwtClaims helpers.J
 	// Declare the expiration time of the token
 	// here, we have kept it as 2 hours
 	expirationTime := time.Now().Add(2 * time.Hour).Unix()
-	// Create the JWT claims, which includes the username and expiry time
-	//jwtClaims = &helpers.Claims{
-	//	Username: credentials.Username,
-	//	StandardClaims: jwt.StandardClaims{
-	//		// In JWT, the expiry time is expressed as unix milliseconds
-	//		ExpiresAt: expirationTime.Unix(),
-	//	},
-	//}
 	err, token := jwtClaims.GenerateToken(postData.Username, expirationTime)
 
 	type result struct {

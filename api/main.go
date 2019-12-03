@@ -13,7 +13,7 @@ func main() {
 	//init Jwt dependency
 	jwtClaims := &helpers.Claims{}
 	//init Github Api dependency
-	githubApi := &apis.GithubApi{BaseURL: &url.URL{Host: "api.github.com", Scheme: "https"}}
+	githubApi := &apis.GithubApi{BaseURL: &url.URL{Host: helpers.GithubUrl, Scheme: "https"}}
 
 	//Init listeners
 	http.Handle("/get-functionalities", Middleware(

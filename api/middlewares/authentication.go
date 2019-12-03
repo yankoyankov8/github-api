@@ -11,7 +11,7 @@ import (
 
 func AuthMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// Read the POST JSOM content
+		// Read the POST JSON content
 		type post struct {
 			Token string `json:"token"`
 		}

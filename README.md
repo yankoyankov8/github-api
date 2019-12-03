@@ -36,8 +36,10 @@ go test ./...
 http://165.22.91.151:8181/issuing-jwt-token
 ```
 
-Еxpect: Json as post: {"username":"user1", "password":"password1"}
-
+Еxpect: Json as post: 
+```
+{"username":"username1", "password":"password1"}
+```
 
 Example Request:
 ```
@@ -64,8 +66,10 @@ Example Response:
 http://165.22.91.151:8181/validate-jwt-token
 ```
 
-Еxpect: Json as post: {"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NzUyNzQ3Mzl9.JqFmC69fqKSHS3TvYJVnoUo3Miba2limvF5UDW50XUM"}
-
+Еxpect: Json as post: 
+```
+{"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NzUyNzQ3Mzl9.JqFmC69fqKSHS3TvYJVnoUo3Miba2limvF5UDW50XUM"}
+```
 
 Example Request:
 ```
@@ -93,8 +97,10 @@ Example Response:
 http://165.22.91.151:8181/get-functionalities
 ```
 
-Еxpect: Json as post: {"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NzUyNzQ3Mzl9.JqFmC69fqKSHS3TvYJVnoUo3Miba2limvF5UDW50XUM"}
-
+Еxpect: Json as post: 
+```
+{"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NzUyNzQ3Mzl9.JqFmC69fqKSHS3TvYJVnoUo3Miba2limvF5UDW50XUM"}
+```
 
 Example Request:
 ```
@@ -160,8 +166,10 @@ Example Response:
 http://165.22.91.151:8181/get-commit-information
 ```
 
-Еxpect: Json as post: {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NzUyOTA4OTF9.mGtY6cMEh7GnRrSSsPEdTkL2lBo2nhWM6_00IUUbBFs", "repo":"admiral", "commit":"553aa1e036f04c414a84ad234586a35dd5845db1"}
-
+Еxpect: Json as post: 
+```
+{"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NzUyOTA4OTF9.mGtY6cMEh7GnRrSSsPEdTkL2lBo2nhWM6_00IUUbBFs", "repo":"admiral", "commit":"553aa1e036f04c414a84ad234586a35dd5845db1"}
+```
 
 Example Request:
 ```
@@ -214,8 +222,10 @@ Example Response:
 http://165.22.91.151:8181/get-repo-information
 ```
 
-Еxpect: Json as post: {"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NzUyOTA4OTF9.mGtY6cMEh7GnRrSSsPEdTkL2lBo2nhWM6_00IUUbBFs", "repo":"admiral"}
-
+Еxpect: Json as post: 
+```
+{"token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NzUyOTA4OTF9.mGtY6cMEh7GnRrSSsPEdTkL2lBo2nhWM6_00IUUbBFs", "repo":"admiral"}
+```
 
 Example Request:
 ```

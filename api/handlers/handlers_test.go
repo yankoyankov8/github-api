@@ -7,6 +7,7 @@ import (
 	"net/http/httptest"
 	"strings"
 	"testing"
+	"errors"
 )
 
 //Mock Jwt functions
@@ -26,6 +27,28 @@ func (m mockGithub) GetRepoInfo(repo string) (apis.ResponseRepoInfo, error) {
 	return apis.ResponseRepoInfo{Description: "test"}, nil
 }
 func (m mockGithub) GetCommitInfo(repo string, commit string) (apis.ResponseCommitInfo, error) {
+	return apis.ResponseCommitInfo{}, nil
+}
+
+
+//Mock Jwt functions return Error
+type mockJwtError struct{}
+
+func (m mockJwtError) GenerateToken(username string, expireTime int64) (error, string) {
+	return errors.New("test"), ""
+}
+func (m mockJwtError) IsTokenValid(token string) (error, bool, string) {
+	return errors.New("test"), false, ""
+}
+
+
+//Mock Gitgub functions return Error
+type mockGithubError struct{}
+
+func (m mockGithubError) GetRepoInfo(repo string) (apis.ResponseRepoInfo, error) {
+	return apis.ResponseRepoInfo{Description: "test"}, nil
+}
+func (m mockGithubError) GetCommitInfo(repo string, commit string) (apis.ResponseCommitInfo, error) {
 	return apis.ResponseCommitInfo{}, nil
 }
 
@@ -357,4 +380,40 @@ func TestGetFunctionalities(t *testing.T) {
 
 	// Check the status code is what we expect.
 	assert.Equal(t, http.StatusOK, rr.Code)
+}
+
+
+//Mock Jwt and Github functions return errors
+func TestIssuingJwtTokenErr(t *testing.T) {
+	req, _ := http.NewRequest("POST", "/issuing-jwt-token", strings.NewReader(`{"username":"user1", "password":"password1"}`))
+
+	rr := httptest.NewRecorder()
+
+	testHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		IssuingJwtToken(w, r, mockJwtError{})
+	})
+
+	testHandler.ServeHTTP(rr, req)
+
+	// Check the status code is what we expect.
+	assert.Equal(t, http.StatusOK, rr.Code)
+	assert.Equal(t,  "{\"Token\":\"\"}", rr.Body.String())
+}
+
+
+//------------------Tests validate token handler---------------
+func TestValidateJwtTokenErr(t *testing.T) {
+	req, _ := http.NewRequest("POST", "/validate-jwt-token", strings.NewReader(`{"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InVzZXIxIiwiZXhwIjoxNTc1MTE2MTEwfQ.KkqrXkiPFYpdCS4OyCNawTGtgWViZXPM-_GAHyeX7DY"}`))
+
+	rr := httptest.NewRecorder()
+
+	testHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		ValidateJwtToken(w, r, mockJwtError{})
+	})
+
+	testHandler.ServeHTTP(rr, req)
+
+	// Check the status code is what we expect.
+	assert.Equal(t, rr.Code, http.StatusUnauthorized)
+	assert.Equal(t, "{\"error\":\"Not valid token\"}", rr.Body.String())
 }
